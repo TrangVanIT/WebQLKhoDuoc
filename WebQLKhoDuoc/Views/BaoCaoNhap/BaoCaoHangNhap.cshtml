@@ -1,0 +1,163 @@
+﻿@model WebQLKhoDuoc.Models.BaoCaoN
+@{
+    ViewBag.Title = "BCChiTietN";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Content/moment.js"></script>
+<script src="~/Content/date.js"></script>
+@using (Html.BeginForm("BaoCaoHangNhap", "BaoCaoNhap", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Báo Cáo Hàng Nhập</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="border:0px solid #e5e5e5;">
+                            <br />
+                            <br />
+
+                            @*<div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Ngày nhập</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    <input type="date" name="NgayNhap" id="NgayNhap" class="form-control" placeholder=" ">
+                                    <br />                               
+                                </div>
+                            </div>*@
+                        @* ================================================================================================= *@
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Từ Ngày</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    @*@Html.DropDownList("MaPhieuX", new SelectList(string.Empty, "MaPhieuX", "NgayXuat"), "--Chọn ngày--", new { @class = "form-control" })*@
+                                    <input type="date" name="NgayNhapS" id="NgayNhapS" class="form-control" placeholder=" " required="required">
+                                    <br />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Đến Ngày</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    @*@Html.DropDownList("MaPhieuX", new SelectList(string.Empty, "MaPhieuX", "NgayXuat"), "--Chọn ngày--", new { @class = "form-control" })*@
+                                    <input type="date" name="NgayNhapF" id="NgayNhapF" class="form-control" placeholder=" " required="required">
+                                    @*ViewBag.StateList2,*@
+                                    <br />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Tên nhà cung cấp</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                    <select id="MaNhaCC">
+                                        <option>
+                                            Chọn nhà cung cấp
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <br />
+                                <br />
+                                <a href="../BaoCaoNhap/ChiTietBCN" id="bcn" class="btn btn-primary btn-xs">
+                                    <i class="fa fa-adn"></i>
+                                    Báo cáo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+
+    $('#NgayNhapF').on('change', function () {
+        start_day = moment($("#NgayNhapS").val()).format('YYYY-MM-DD h:mm:ss');
+        finish_day = moment($("#NgayNhapF").val()).format('YYYY-MM-DD h:mm:ss');
+
+        if (start_day <finish_day) {
+            $.ajax({
+                url: '/BaoCaoNhap/NhaCCList',
+                dataType: "json",
+                type: "GET",
+                data: { tungay: start_day, denngay: finish_day },
+                success: function (data) {
+                    $("#MaNhaCC").empty();
+                    $('#MaNhaCC').append('<option selected>--Chọn nhà cung cấp--</option>');
+                    $.each(data, function (i, item) {
+                        idnam = item.MaPhieuN;
+                        $('#MaNhaCC').append('<option  id="' + item.MaNhaCC + '">' + item.TenNhaCC + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+            $('#MaNhaCC').on('change', function () {
+                var k = $(this).find('option:selected').attr('id');
+                $("#bcn").attr('href', '../BaoCaoNhap/ChiTietBCN?Manhacc=' + k + '&' + 'tungay=' + start_day + '&' + 'denngay=' + finish_day);
+
+            });
+
+        } else {
+            alert('Vui Long nhap lai ngay ');
+        }
+
+    });
+    </script>
+
+    @*<script type="text/javascript">
+    var data_id = new Array();
+    function getdonvi(kt)
+    {
+        var data1 = parseInt($('#MaKho').val());
+
+        $.ajax({
+            url: '/BaoCaoNhap/NhaCCList',
+            dataType: "json",
+            type: "GET",
+            data: { MaKho: data1 },
+            success: function (data)
+            {
+                var idnam = '';
+                $("#MaNhaCC").empty();
+                $('#MaNhaCC').append('<option selected>--Chọn nhà cung cấp--</option>');
+                $.each(data, function (i, item)
+                {
+                    idnam = item.MaPhieuN;
+                    if (kt == true)
+                        $('#MaNhaCC').append('<option id="' + item.MaNhaCC+ '">' + item.TenNhaCC + '</option>');
+                });
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+        $('#MaNhaCC').on('change', function ()
+        {
+            var k = $(this).find('option:selected').attr('id');
+            $("#bcn").attr('href', '../BaoCaoNhap/ChiTietBCN?Makho=' + data1 + '&' + 'Manhacc=' + k);
+        });
+    }
+    blur
+    $('#MaKho').on('change', function ()
+    {
+        getdonvi(true);
+    });
+
+</script>*@

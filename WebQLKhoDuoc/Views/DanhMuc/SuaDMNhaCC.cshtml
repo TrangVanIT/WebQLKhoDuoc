@@ -1,0 +1,83 @@
+﻿@model WebQLKhoDuoc.Models.NhaCungCap
+@{
+    ViewBag.Title = "SuaDMNhaCC";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Sửa Nhà cung cấp</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="x_panel">
+               
+                    <h4>Tên Nhà Cung Cấp: @Model.TenNhaCC</h4>
+                    @Html.HiddenFor(model => model.MaNhaCC)
+                  
+                    <br />
+                    <br />
+                    @*BanKeHoach,Admin*@
+                   
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Nhà Cung Cấp</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" class="form-control" name="TenNhaCC" value="@Model.TenNhaCC" required="required">
+                            @Html.ValidationMessageFor(model => model.TenNhaCC)
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Địa chỉ</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" class="form-control" name="DiaChi" value="@Model.DiaChi" required="required">
+                            @Html.ValidationMessageFor(model => model.DiaChi)
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Số điện thoại</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="tel" class="form-control" name="SDT" value="@Model.SDT" maxlength="11" required="required">
+                            @Html.ValidationMessageFor(model => model.SDT)
+                        </div>
+                    </div>
+                         <br />
+                    <br />
+
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                        <button type="button" onclick="location.href = '@Url.Action("XemDMNhaCC", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+                  
+                    @* BanTaiChinh, BanChuNhiem *@
+                    @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))
+                    {
+                        <script language="javascript">
+                            window.onload = function () {
+                                alert("Bạn không có vai trò!");
+                                window.location = "../DanhMuc/XemDMNhaCC";
+
+                            }
+                        </script>
+                    }*@
+                   
+                </div>
+            </div>
+        </div>
+   
+}
+
+
+
+

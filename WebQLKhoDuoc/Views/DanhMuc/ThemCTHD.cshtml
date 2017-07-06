@@ -1,0 +1,121 @@
+﻿@model WebQLKhoDuoc.Models.ChiTietHopDong
+@{
+    ViewBag.Title = "ThemCTHD";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (Html.BeginForm("ThemCTHD", "DanhMuc", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+         
+                <div class="x_content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Thêm CTHĐ</h2>
+                                @*@Html.HiddenFor(model => model.MaCTHD)
+                                @Html.HiddenFor(model => model.MaHopDong)*@
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="x_panel">
+                        @*BanKeHoach, Admin*@
+                       
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số HĐ</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                                    @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" }) name="MaHopDong"*@
+                                    @Html.DropDownList("MaHopDong", new SelectList(ViewBag.HD, "MaHopDong", "SoHopDong"), "--Chọn số HĐ--", new { @class = "form-control", @required = "required"})
+                                    @*<input type="text" class="form-control" id="MaHopDong" name="MaHopDong" disabled="disabled" placeholder="@Model.HopDong.SoHopDong">*@
+                                </div>
+                            </div>
+                           
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Mặt Hàng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" })*@
+                                    @Html.DropDownList("MaMatHang", new SelectList(ViewBag.MH, "MaMatHang", "TenMatHang"), "--Chọn mặt hàng--", new { @class = "form-control", @required = "required" })
+                              
+
+                                </div>
+                            </div>                    
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" name="SoLuong" class="form-control" placeholder=" " required="required">
+
+                                </div>
+                            </div>
+
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Giá/1 ĐVT</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" name="Gia" class="form-control" placeholder=" " required="required">
+
+                                </div>
+                            </div>
+
+                            <br />
+                            <br />
+                            @*<div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Tình trạng giao hàng</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+
+                            @Html.CheckBox("TinhTrangGH", false, new { @readonly = "readonly" })
+
+                        </div>
+                    </div>
+                          
+                            <br />
+                            <br />*@
+
+                            <div class="nav navbar-right" style=" margin-right: 360px">
+                                <button type="submit" value="ThemCTHD" class="btn btn-primary btn-md">Lưu</button>
+                                <button type="button" onclick="location.href = '@Url.Action("XemDMHopDong", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                            </div>
+                            
+                            
+                     
+                        @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))*@
+                        @*else
+                            {
+                                <script language="javascript">
+                                    window.onload = function () {
+                                        alert("Bạn không có vai trò!");
+                                        window.location = "../DanhMuc/XemDMHopDong";
+
+                                    }
+                                </script>
+                            }*@
+                            @if (ViewBag.Message == 0)
+                            {
+                                <script language="javascript">
+                                    window.onload = function () {
+                                        alert("Mặt hàng trong hợp đồng này đã thêm!!!");
+                                        //window.location = "XemDMHopDong";
+                                    }
+                                </script>
+                            }  
+
+                        </div>
+
+                    </div>
+
+            </div>
+      
+        
+     
+}
+
+
+

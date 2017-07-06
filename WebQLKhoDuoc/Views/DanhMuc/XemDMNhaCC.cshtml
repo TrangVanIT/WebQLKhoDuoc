@@ -1,0 +1,128 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<WebQLKhoDuoc.Models.NhaCungCap>
+@{
+    ViewBag.Title = "XemDMNhaCC";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+
+    <div class="page-title">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Xem thông tin nhà cung cấp</h2>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+        
+       
+   
+    @using (Html.BeginForm("XemDMNhaCC", "DanhMuc", FormMethod.Get))
+    {
+    @*<label class="col-md-3 col-sm-3 col-xs-5">Tìm nhà cung cấp:</label>*@
+
+          <div class="center form-inline">         
+              <div class="col-md-6 col-sm-6 col-xs-6" style="margin-left: 260px">
+                  <b class="center">Tìm theo: </b> @Html.RadioButton("searchBy", "TenNhaCC", true)<text> Tên nhà CC </text>
+                  @Html.RadioButton("searchBy", "DiaChi") <text> Địa chỉ </text>
+                  <br /><br />
+                  @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Gõ nội dung cần tìm...", @style = "width:400px;" })
+                  <input class="btn-success btn-md form-control" type="submit" value="Tìm" id="search-button" />
+                  <br /><br />
+              </div>
+          </div>
+    }
+    @*@if (ViewBag.Message == 0)
+        {
+            <script language="javascript">
+                window.onload = function () {
+                    alert("Không được để trống nội dung tìm!!!");
+                    //window.location = "XemDMKho";
+                }
+            </script>
+        }*@
+
+</div>
+   
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <div class="panel body panel panel-primary">
+                    <table width=100% class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+                            <tr class="headings">
+                               
+                                <th class="column-title">Tên nhà CC</th>
+                                <th class="column-title text-center">Địa chỉ</th>
+                                <th class="column-title text-center">Số ĐT</th>                             
+                                <th class="column-title text-center">Sửa</th>
+                                
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+
+                                <tr class="even pointer">
+                                    
+                                    <td class="">
+                                        @Html.DisplayFor(modelItem => item.TenNhaCC)
+                                    </td>
+                                    <td class="" align="center">
+                                        @Html.DisplayFor(modelItem => item.DiaChi)
+                                    </td>
+                                    <td class="" align="center">
+                                        @Html.DisplayFor(modelItem => item.SDT)
+                                    </td>
+                                    <td class=""align="center">
+                                        <a href="@Url.Action("SuaDMNhacC", "DanhMuc", new { @MaNhaCC = item.MaNhaCC })" class="btn btn-info btn-xs">
+                                            <i class="fa fa-pencil"></i>
+                                            Sửa
+                                        </a>
+                                    </td>
+                       
+                                    @*<td class="">
+                                        <a href="@Url.Action("XoaDMNhaCC", "DanhMuc", new { @MaNhaCC = item.MaNhaCC })" class="btn btn-danger btn-xs">
+                                            <i class="fa fa-trash-o"></i>
+                                            Xóa
+                                        </a>
+
+                                    </td>*@
+
+                                </tr>
+
+                            </tbody>
+                        }
+                    </table>
+                    <br />
+           
+                    </div>
+                </div>
+            <a href="@Url.Action("ThemDMNhaCC", "DanhMuc")" class="btn btn-primary btn-xs">
+                <i class="fa fa-plus"></i>
+                Thêm Mới
+            </a>
+
+        </div>
+
+    </div>
+</div>
+@*Trang @(Model.PageCount
+    < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+    <div style="margin-left:400px">
+        @Html.PagedListPager(Model, page => Url.Action("XemDMNhaCC", new { page = page }))
+    </div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Remove unnecessary input.
+        $('#search-button').click(function () {
+            $('input[name="DXScript"]').remove();
+            return true;
+        })
+    });
+</script>

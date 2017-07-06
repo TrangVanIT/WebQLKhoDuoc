@@ -1,0 +1,48 @@
+﻿@model WebQLKhoDuoc.Models.LoaiThanhVien
+@{
+    ViewBag.Title = "SuaLoaiTV";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Sửa Loại thành viên</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <br /><br />
+         <div class="x_panel">
+                    <h4>Tên Loại TV: @Model.TenLoaiThanhVien</h4>
+                    @Html.HiddenFor(model => model.MaLoaiThanhVien)
+
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Loại TV</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            @*<input type="text" name="TenKho" class="form-control"  placeholder="@Model.TenKho">*@
+                            <input type="text" name="TenLoaiThanhVien" class="form-control" value="@Model.TenLoaiThanhVien" required="required">
+                            @Html.ValidationMessageFor(model => model.TenLoaiThanhVien)
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                        <button type="button" onclick="location.href = '@Url.Action("XemDMLoaiTV", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+     
+}
+

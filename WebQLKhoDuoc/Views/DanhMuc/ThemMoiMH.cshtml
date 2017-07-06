@@ -1,0 +1,160 @@
+﻿@model WebQLKhoDuoc.Models.MatHang
+@{
+    ViewBag.Title = "ThemMoiMH";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (Html.BeginForm("ThemMoiMH", "DanhMuc", FormMethod.Post))
+{
+     @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="x_content">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2> Thêm Mặt hàng</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="x_panel">
+                @*BanKeHoach,Admin*@
+               
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Mặt Hàng:</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" id="txttenmh" name="TenMatHang" class="form-control" placeholder=" " required="required">
+
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Đơn vị tính</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" id="txtdvt" name="DonViTinh" class="form-control" placeholder=" " required="required">
+
+                        </div>
+                    </div>
+                 
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Loại Mặt Hàng</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            @*@Html.DropDownList("MaLoaiMH", String.Empty)*@
+                            @Html.DropDownList("MaLoaiMH", new SelectList(ViewBag.LoaiMH, "MaLoaiMH", "TenLoaiMH"), new { @class = "form-control" })
+
+                        </div>
+                        <div>
+                            @*<i style="font-size: 24px; margin-left: 20px; margin-top: 5px; color: green; " class="glyphicon glyphicon-plus-sign"></i>*@
+                            <button type="button" style="font-size: 24px; margin-left: 20px; margin-top: 0px; color: green; " class="glyphicon glyphicon-plus-sign" data-toggle="modal" data-target="#myModal"> </button>
+                           
+                        </div>
+                    </div>
+                     <br />
+                    <br />
+
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" value="ThemMoiMH" class="btn btn-primary btn-md">Lưu</button>
+                        <button type="button" onclick="location.href = '@Url.Action("XemMH", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+               
+                @* BanTaiChinh, BanChuNhiem *@
+                @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))*@
+                 @*else
+                {
+                    <script language="javascript">
+                        window.onload = function () {
+                            alert("Bạn không có vai trò!");
+                            window.location = "../DanhMuc/XemMH";
+
+                        }
+                    </script>
+                }*@
+
+                    
+                </div>
+
+            </div>
+
+        </div>
+       <div class="modal fade bd-example-modal-lg" id="myModal" role="dialog">
+        <div class="modal-dialog modal-lg" style="width:800px">
+            <!-- Modal content-->
+            <div class="modal-content panel panel-danger">
+                <div class="modal-header" style="background-color: #2751f2;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" style="color:#f6f3f3">Thêm loại mặt hàng </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3">Tên Loại Mặt Hàng:</label>
+                        <div class="col-md-7 col-sm-6 col-xs-5">
+                            <input type="text" id="txtLMH" class="form-control" placeholder=" " required="required">
+                        </div>
+                    </div>
+                    <div >
+                        <button type="button" id="btnthemLMH" class="btn btn-blue "  style="margin-top: -10px">Lưu</button>
+                    </div>
+                </div>
+                <br />
+                <br />
+               
+            </div>
+         </div>
+      </div>
+     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    if (ViewBag.Message == 0)
+    {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Tên mặt hàng đã tồn tại!!!");
+                window.location = "ThemMoiMH";
+            }
+          </script>
+    }
+   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txttenmh").val(localStorage.getItem('txttenmh'))
+            $("#txtdvt").val(localStorage.getItem('txtdvt'))
+            $("#btnthemLMH").click(function() {             
+                var jsonData= {
+                    "TenLoaiMatHang": $("#txtLMH").val()
+                };
+                alert("ok");
+                $.ajax({
+                    type: "GET",
+                    url: "/DanhMuc/AjaxThemLMH",
+                    data: jsonData,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: OnSuccess,
+                    error: OnErrorCall
+                });
+
+                function OnSuccess(response) {
+                    localStorage.setItem('txttenmh', $("#txttenmh").val());
+                    localStorage.setItem('txtdvt', $("#txtdvt").val());
+                    location.reload();              
+                }
+
+                function OnErrorCall(response) {
+                    $("#msg").html("Error occurs  :(").css("color", "red");
+                }
+
+            });
+
+        });
+
+    </script>
+
+}
+
+
+
+
+
+

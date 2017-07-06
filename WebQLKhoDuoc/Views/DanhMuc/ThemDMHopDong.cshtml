@@ -1,0 +1,117 @@
+﻿@model WebQLKhoDuoc.Models.HopDong
+@{
+    ViewBag.Title = "ThemDMHopDong";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+     
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.TongGiaHD)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Thêm hợp đồng mới</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <br /><br />
+            @*BanKeHoach,Admin*@
+          
+            <div class="x_panel">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="SoHopDong" class="form-control" placeholder="" required="required">
+                        @Html.ValidationMessageFor(model => model.SoHopDong)
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="date" name="NgayKy" class="form-control" placeholder="" required="required">
+                        @Html.ValidationMessageFor(model => model.NgayKy)
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày kết thúc</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="date" name="NgayKT" class="form-control" placeholder="" required="required">
+                        @Html.ValidationMessageFor(model => model.NgayKT)
+                    </div>
+                </div>
+
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Người Ký</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), "--Chọn người ký--", new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.MaThanhVien)
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhà cung cấp</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), "--Chọn Nhà cung cấp--", new { @class = "form-control", @required = "required" })
+                        @Html.ValidationMessageFor(model => model.MaNhaCC)
+                    </div>
+                </div>
+              
+                <br />
+                <br />
+                <br />
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" class="btn btn-primary btn-md">Lưu</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemDMHopDong", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+            </div>
+        
+            @* BanTaiChinh, BanChuNhiem *@
+            @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))*@
+         @*else
+               {
+                <script language="javascript">
+                    window.onload = function () {
+                        alert("Bạn không có vai trò!");
+                        window.location = "../DanhMuc/XemDMHopDong";
+
+                    }
+                </script>
+            }*@
+            </div>
+        </div>
+     if (ViewBag.Message == 0)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Ngày ký phải nhỏ hơn ngày kết thúc!!!");
+              
+            }
+        </script>
+        }  
+         if (ViewBag.Message == 1)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Đã tồn tại số hợp đồng!!!");
+                window.location = "ThemDMHopDong";
+               
+            }
+        </script>
+        
+    
+        }  
+   
+}
+

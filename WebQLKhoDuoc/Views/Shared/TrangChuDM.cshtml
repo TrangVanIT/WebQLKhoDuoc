@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pharmacy Management | </title>
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView }
+    )
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.GridView }
+    )
+  
+    <!-- Bootstrap -->
+   
+    <link href="~/Content/Home/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+
+    <link href="~/Content/Home/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- NProgress -->
+
+    <link href="~/Content/Home/vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <!-- iCheck -->
+    <link href="~/Content/Home/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <!-- bootstrap-progressbar -->
+
+    <link href="~/Content/Home/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+    <!-- JQVMap -->
+
+    <link href="~/Content/Home/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+
+    <!-- bootstrap-daterangepicker -->
+
+    <link href="~/Content/Home/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+
+    <link href="~/Content/Home/build/css/custom.min.css" rel="stylesheet" />
+
+
+
+
+
+
+
+</head>
+<body class="nav-md">
+    <div class="container body">
+        <div class="main_container">
+            <div class="col-md-3 left_col">
+                <div class="left_col scroll-view">
+                    <div class="navbar nav_title" style="border: 0;">
+                        <a href="../Home/Index" class="site_title"><i class="fa fa-ambulance"></i> <span>Pharmacy Management</span></a>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <br />
+                    <!-- sidebar menu -->
+                    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                        <div class="menu_section">
+
+                            <ul class="nav side-menu">
+                                <li>
+                                    <a><i class="fa fa-home"></i> TRANG CHỦ <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/Home/home">Trang chủ</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-edit"></i> DANH MỤC <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/DanhMuc/XemMH">Danh Mục Mặt Hàng</a></li>
+                                        <li><a href="/DanhMuc/XemDMLoaiMH">Danh Mục Loại Mặt Hàng</a></li>
+                                        <li><a href="/DanhMuc/XemDMNhaCC">Danh Mục Nhà Cung Cấp</a></li>
+                                        <li><a href="/DanhMuc/XemDMHopDong">Danh Mục Hợp Đồng</a></li>
+                                        <li><a href="/DanhMuc/XemDMKho">Danh Mục Kho</a></li>
+                                        <li><a href="/DanhMuc/XemDMDonVi">Danh Mục Đơn vị</a></li>
+
+                                        @if (@Session["MaLoaiThanhVien"].Equals(1))
+                                        {
+
+                                            <li><a href="/DanhMuc/XemDMLoaiTV">Danh Mục Loại Thành Viên</a></li>
+                                            <li><a href="/DanhMuc/XemDMThanhVien">Danh Mục Thành Viên</a></li>
+                                            <li><a href="/DanhMucQuyen/XemDMQuyen">Danh Mục Nghiệp Vụ</a></li>
+                                            <li><a href="/Home/ViewHis">Lịch sử người dùng</a></li>
+                                        }
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-table"></i>PHIẾU NHẬP XUẤT <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="../PhieuNhapXuat/XemPhieuNhap">Phiếu Nhập</a></li>
+                                        <li><a href="../PhieuNhapXuat/XemPhieuXuat">Phiếu Xuất</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-bar-chart-o"></i>BÁO CÁO <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="../BaoCaoNhap/BaoCaoHangNhap">Báo cáo nhập</a></li>
+                                        <li><a href="../BaoCao/BaoCaoHangXuat">Báo cáo xuất</a></li>                                                                        
+                                        <li><a href="../BaoCao/BaoCaoCTN2">Báo cáo chi tiết hàng nhập</a></li>
+                                        <li><a href="../BaoCao/BaoCaoCTX2">Báo cáo chi tiết hàng xuất</a></li>
+                                        <li><a href="../BaoCao/BCHieuSuatSuDung">Báo cáo hiệu suất sử dụng</a></li>
+                                        <li><a href="../BaoCao/BaoCaoHT">Báo cáo hàng tồn</a></li>
+                                        <li><a href="../BaoCao/BCHangHetHan">Báo cáo hàng hết hạn</a></li>                                     
+                                        <li><a href="../BaoCao/BCTongGTCapDV">Báo cáo tổng giá trị cấp cho đơn vị</a></li>
+
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a><i class="fa fa-bookmark"></i>KIỂM KÊ <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">                                        
+                                        <li><a href="../KiemKe/KKTheoLoaiMH">Kiểm kê theo loại MH</a></li>                                       
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a><i class="fa fa-phone-square"></i>LIÊN HỆ<span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="../Home/LienHe">Thông tin</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                    <!-- /sidebar menu -->
+                   
+                </div>
+            </div>
+
+
+            <!-- top navigation -->
+            <div class="top_nav" data-position="fixed">
+                <div class="nav_menu">
+                    <nav>
+                        <div class="nav toggle">
+                            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                        </div>
+                        @if (Session["TenDangNhap"] != null)
+                        {
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="">
+                                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Xin chào, @Session["TenDangNhap"].ToString()
+                                        <span class=" fa fa-angle-down"></span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                        <li><a href="@Url.Action("XemThongTin","Home",new{@MaThanhVien=@Session["MaThanhVien"]})"><i class="fa fa-eye"></i>Xem Tài Khoản</a></li>
+                                        <li><a href="../Home/DoiMatKhau"><i class="fa fa-key"></i>Đổi mật khẩu</a></li>
+
+                                        <li><a href="@Url.Action("AfterLogout", "Home")"><i class="fa fa-sign-out pull-right"></i>Đăng xuất</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        }
+                        @if (Session["TenDangNhap"] == null)
+                        {
+                            <ul class="nav navbar-top-links navbar-right" style="margin-right:30px;">
+                                <li>
+                                    <a href="../Home/Login">
+                                        <i class="glyphicon glyphicon-log-in"></i>Đăng nhập<i></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../Home/DangKy">
+                                        <i class="glyphicon glyphicon-registration-mark"></i>Đăng ký <i></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        }
+                    </nav>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- /top navigation -->
+            <!-- page content -->
+            <div class="right_col" role="main">
+                <!-- top tiles -->
+                <div class="row">
+                    @RenderBody()
+
+
+                </div>
+                @Html.Partial("~/Views/Shared/BacktoTopP.cshtml")
+            </div>
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                @*<div class="pull-right">
+                        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+                    </div>*@
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
+            <a id="back-to-top" href="#" class="btn btn-dark btn-md back-to-top" role="button" title="Click to return on the top page" data-toggle="tooltip" data-placement="left"><span class="glyphicon glyphicon-chevron-up"></span></a>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <!-- Bootstrap -->
+    <script src="~/Content/Home/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/Content/Home/vendors/fastclick/lib/fastclick.js"></script>
+
+    <!-- NProgress -->
+    <!-- Chart.js -->
+    <script src="~/Content/Home/vendors/nprogress/nprogress.js"></script>
+    <!-- gauge.js -->
+    <script src="~/Content/Home/vendors/Chart.js/dist/Chart.min.js"></script>
+    <script src="~/Content/Home/vendors/gauge.js/dist/gauge.min.js"></script>
+    <!-- bootstrap-progressbar -->
+
+
+    <script src="~/Content/Home/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+
+    <!-- iCheck -->
+
+
+    <script src="~/Content/Home/vendors/iCheck/icheck.min.js"></script>
+
+    <!-- Skycons -->
+
+
+    <script src="~/Content/Home/vendors/skycons/skycons.js"></script>
+
+    <!-- Flot -->
+
+
+    <script src="~/Content/Home/vendors/Flot/jquery.flot.js"></script>
+    <script src="~/Content/Home/vendors/Flot/jquery.flot.pie.js"></script>
+    <script src="~/Content/Home/vendors/Flot/jquery.flot.time.js"></script>
+
+    <script src="~/Content/Home/vendors/Flot/jquery.flot.stack.js"></script>
+
+    <script src="~/Content/Home/vendors/Flot/jquery.flot.resize.js"></script>
+
+
+    <!-- Flot plugins -->
+
+
+
+    <script src="~/Content/Home/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+    <script src="~/Content/Home/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+    <script src="~/Content/Home/vendors/flot.curvedlines/curvedLines.js"></script>
+
+    <!-- DateJS -->
+
+    <script src="~/Content/Home/vendors/DateJS/build/date.js"></script>
+
+
+    <!-- JQVMap -->
+
+    <script src="~/Content/Home/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script src="~/Content/Home/vendors/jqvmap/dist/jquery.vmap.min.js"></script>
+
+    <!-- bootstrap-daterangepicker -->
+    <script src="~/Content/Home/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script src="~/Content/Home/vendors/moment/min/moment.min.js"></script>
+
+    <script src="~/Content/Home/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/Home/build/js/custom.min.js"></script>
+
+
+</body>
+</html>

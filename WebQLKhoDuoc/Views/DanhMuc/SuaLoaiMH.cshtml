@@ -1,0 +1,72 @@
+﻿@model WebQLKhoDuoc.Models.LoaiMatHang
+@{
+    ViewBag.Title = "SuaLoaiMH";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+            <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Sửa loại Mặt hàng</h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="x_panel">
+            <h2>Loại Mặt Hàng: @Model.TenLoaiMH </h2>
+            @Html.HiddenFor(model => model.MaLoaiMH)
+            @*
+                @Html.HiddenFor(model => model.TenLoaiMH)*@
+            <div class="clearfix"></div>
+
+            <div class="x_content">
+             
+                <div class="form-group">
+                @*BanKeHoach,Admin*@
+             
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Loại MH</label>
+                    <div class="form-">
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" class="form-control" name="TenLoaiMH" value="@Model.TenLoaiMH" required="required">
+                            @Html.ValidationMessageFor(model => model.TenLoaiMH)
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" class="btn btn-primary btn-md">Cập Nhật</button>
+                        <button type="button" onclick="location.href = '@Url.Action("XemDMLoaiMH", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+               
+                @* BanTaiChinh, BanChuNhiem *@
+                @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))
+                {
+                    <script language="javascript">
+                        window.onload = function () {
+                            alert("Bạn không có vai trò!");
+                            window.location = "../DanhMuc/XemDMLoaiMH";
+
+                        }
+                    </script>
+                }*@
+                    <br />
+                    
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    }
+
+

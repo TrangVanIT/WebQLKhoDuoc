@@ -1,0 +1,150 @@
+﻿@model WebQLKhoDuoc.Models.ThanhVien
+@{
+    ViewBag.Title = "ThemMoiTV";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (Html.BeginForm("ThemMoiTV", "DanhMuc", FormMethod.Post,new { name = "myform", @enctype = "multipart/form-data", onsubmit = "return validateform()" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2> Thêm thành viên</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <br /><br />
+            <div class="x_panel">
+                @*BanKeHoach,Admin*@
+
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Họ tên:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="FullName" class="form-control" placeholder=" " required="required">
+
+                    </div>
+                </div>
+
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên đăng nhập:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="TenDangNhap" class="form-control" placeholder=" " required="required">
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Email:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="email" name="Email" class="form-control" placeholder=" " required="required">
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Mật khẩu:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="Pass" class="form-control" placeholder=" " required="required">
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhập lại mật khẩu:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="ConfirmPassword" class="form-control" placeholder=" " required="required">
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Giới tính:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        @Html.RadioButtonFor(m => m.GioiTinh, "false", new { @id = "radiobtnNam", @checked = "checked" })Nam
+                        @Html.RadioButtonFor(m => m.GioiTinh, "true", new { @id = "radiobtnNu" })Nữ
+
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Là admin:</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                     
+                            @Html.CheckBox("isadmin", true, new { @readonly = "readonly" })
+                      
+                    </div>
+                </div>
+
+                <br />
+                <br />
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Loại thành viên:</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                      
+                        @Html.DropDownList("MaLoaiThanhVien", new SelectList(ViewBag.LoaiTV, "MaLoaiThanhVien", "TenLoaiThanhVien"), new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <br />
+                <br />
+
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" value="ThemMoiTV" class="btn btn-primary btn-md">Lưu</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemDMThanhVien", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+                 if (ViewBag.Message == 0)
+                    {
+                    <script language="javascript">
+                        window.onload = function () {
+                            alert("Tên đăng nhập hoặc email đã tồn tại!!!");
+                           // window.location = "ThemMoiTV";
+                        }
+                    </script>
+                    }
+    
+}
+
+<script type="text/javascript">
+    function validateform() {
+        var TenDangNhap = document.myform.TenDangNhap.value;
+        var Pass = document.myform.Pass.value;
+        var ConfirmPassword = document.myform.ConfirmPassword.value;
+        var Email = document.myform.Email.value;
+
+        if (TenDangNhap < 8 || TenDangNhap >16) {
+            alert("Tên đăng nhập từ 8 đến 16 ký tự");
+            return false;
+        }
+        else {
+            if (Pass.length < 6) {
+                alert("Password phải nhiều hơn 6 kí tự");
+                return false;
+            }
+        }
+        if (Pass != ConfirmPassword) {
+            alert("Password không khớp.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+
+

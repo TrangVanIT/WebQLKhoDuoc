@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "BCHieuSuatSuDung";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewer";
+}).Bind(new BCHieuSuatSuDung()).GetHtml()

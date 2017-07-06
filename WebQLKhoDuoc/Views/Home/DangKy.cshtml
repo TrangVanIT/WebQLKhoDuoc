@@ -1,0 +1,146 @@
+﻿@model WebQLKhoDuoc.Models.ThanhVien
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (@Html.BeginForm("DangKy", "Home", FormMethod.Post, new { name = "myform", @enctype = "multipart/form-data", onsubmit = "return validateform()" }))
+{
+    <div class="widget-body">
+        <div class="widget-main">
+            <h4 class="header blue lighter bigger">
+                <i class="ace-icon fa fa-coffee green"></i>
+                New User Registration
+            </h4>
+
+            <div class="space-6"></div>
+            <p> Enter your details to begin: </p>
+            <form>
+                <fieldset>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    @if (ViewBag.Mesage != null)
+                    {
+                        <div style="border: solid 1px green">
+                            @ViewBag.Message
+                        </div>
+                    }
+                    <label class="block clearfix">
+                        Fullname:
+                        <span class="block input-icon input-icon-right">
+                            <i class="ace-icon fa fa-user"></i>
+                            @Html.TextBoxFor(m => m.FullName, new { @id = "txtfullname", @style = "width:350px;"})
+                            @Html.ValidationMessageFor(m => m.FullName)
+
+                        </span>
+
+                    </label>
+                    <label class="block clearfix">
+                        Username:
+                        <span class="block input-icon input-icon-right">
+                            @Html.TextBoxFor(m => m.TenDangNhap, new { @id = "txtusername", @style = "width:350px;"})
+                            @Html.ValidationMessageFor(m => m.TenDangNhap)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+                    <label style="color:red">
+                        @ViewBag.Message1
+                    </label>
+                    <label class="block clearfix">
+                        Email:
+                        <span class="block input-icon input-icon-right">
+                            @Html.TextBoxFor(m => m.Email, new { @id = "txtemail", @style = "width:350px;", @type = "email" })
+                            @Html.ValidationMessageFor(m => m.Email)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+                    <div class="block clearfix">
+                        <ul class="nav navbar-nav pull-left group">
+                            <li>
+                            <span>@Html.RadioButtonFor(m => m.GioiTinh, "false", new { @id = "radiobtnNam",@checked="checked"})Nam</span> 
+                            <span>@Html.RadioButtonFor(m => m.GioiTinh, "true", new { @id = "radiobtnNu" })Nữ</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <label class="block clearfix">
+                        Password:
+                        <span class="block input-icon input-icon-right">
+                            @Html.PasswordFor(m => m.Pass, new { @id = "txtpassword", @style = "width:350px;" })
+                            @Html.ValidationMessageFor(m => m.Pass)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+                    <label class="block clearfix">
+                        ConfirmPassword:
+                        <span class="block input-icon input-icon-right">
+                            @Html.Password("ConfirmPassword", null, new { @id = "txtconfirmpassword", @style = "width:350px;" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+           
+
+                    <div class="space-6"></div>
+
+                    <div class=" editor-field">
+                        <a href="../Home/Index" class="width-50 pull-right btn btn-sm btn-green" role="button">
+                            <span class="bigger-110">Back</span>
+                        </a>
+                        <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                            <i class="ace-icon fa fa-key"></i>
+                            <span class="bigger-110">Register</span>
+                        </button>
+                       
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+
+    @*<script type="text/javascript">
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#Hinh')
+                            .attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>*@
+}
+
+<script type="text/javascript">
+    function validateform() {
+        var TenDangNhap = document.myform.TenDangNhap.value;
+        var Pass = document.myform.Pass.value;
+        var ConfirmPassword = document.myform.ConfirmPassword.value;
+        var Email = document.myform.Email.value;
+
+        if (TenDangNhap == null || TenDangNhap == "" || Pass == null || Pass == "" || Email == null || Email == "") {
+            alert("Không được để trống name- email- password");
+            return false;
+        }
+        else {
+            if (Pass.length < 6) {
+                alert("Password phải nhiều hơn 6 kí tự");
+                return false;
+            }
+        }
+        if (Pass != ConfirmPassword) {
+            alert("Password không khớp.");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+
+
+
+

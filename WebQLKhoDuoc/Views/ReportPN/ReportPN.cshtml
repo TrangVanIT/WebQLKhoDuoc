@@ -1,0 +1,39 @@
+﻿@using ReportViewerForMvc;
+@model WebQLKhoDuoc.Models.PhieuNhap
+@{
+    ViewBag.Title = "ReportPN";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@{
+    ViewBag.Title = "ReportEmployee";
+}
+
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <fieldset>
+        <legend>Report 1</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.NgayNhap)
+                @Html.TextBoxFor(m => m.NgayNhap)
+                @Html.ValidationMessageFor(m => m.NgayNhap)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.NgayNhap)
+                @Html.TextBoxFor(m => m.NgayNhap)
+                @Html.ValidationMessageFor(m => m.NgayNhap)
+            </li>
+        </ol>
+        <input type="submit" class id="btnSubmit" value="View Report" />
+    </fieldset>
+}
+
+@Html.ReportViewer(ViewBag.ReportViewer as Microsoft.Reporting.WebForms.ReportViewer)
+
+  
+

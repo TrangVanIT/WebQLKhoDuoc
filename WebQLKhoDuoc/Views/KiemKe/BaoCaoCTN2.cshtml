@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "BaoCaoCTN";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewer3";
+}).Bind(new BaoCaoCTN2()).GetHtml()
+
+
+
+
+

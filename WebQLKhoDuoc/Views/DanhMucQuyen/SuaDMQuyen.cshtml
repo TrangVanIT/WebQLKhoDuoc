@@ -1,0 +1,58 @@
+﻿@model WebQLKhoDuoc.Models.DanhMucQuyen
+@{
+    ViewBag.Title = "SuaLoaiMH";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="clearfix"></div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Sửa danh mục quyền</h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <br /><br />
+        <div class="x_panel">
+
+            @Html.HiddenFor(model => model.MaDMQuyen)
+
+            <div class="clearfix"></div>
+
+            <div class="x_content">
+
+                <div class="form-group">
+                    @*BanKeHoach,Admin*@
+
+                    <label class="control-label col-md-2 ">Tên danh mục quyền</label>
+                    <div class="form-">
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            <input type="text" class="form-control" name="TenDMQuyen" value="@Model.TenDMQuyen" required="required">
+                            @Html.ValidationMessageFor(model => model.TenDMQuyen)
+
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" class="btn btn-primary btn-md">Cập Nhật</button>
+                        <button type="button" onclick="location.href = '@Url.Action("Index", "DanhMucQuyen")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+}
+
+

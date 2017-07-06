@@ -1,0 +1,188 @@
+﻿@model  WebQLKhoDuoc.Models.ChiTietHopDong
+
+@{
+    ViewBag.Title = "SuaCTHopDong";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Sửa Chi tiết hợp đồng</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                    <div class="x_panel">
+                        <h2>Hợp đồng: @Model.HopDong.SoHopDong </h2>
+                        @Html.HiddenFor(model => model.MaCTHD)
+                        @Html.HiddenFor(model => model.MaHopDong)
+                       
+                        @*BanKeHoach oke*@
+                        @if (@Session["MaLoaiThanhVien"].Equals(3))
+                        {
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số HĐ</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="MaHopDong" name="MaHopDong" disabled="disabled" placeholder="@Model.HopDong.SoHopDong">
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="SoLuong" name="SoLuong" value="@Model.SoLuong" required="required">
+                                    @Html.ValidationMessageFor(model => model.SoLuong)
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Giá:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="Gia" name="Gia" value="@Model.Gia" required="required">
+                                    @Html.ValidationMessageFor(model => model.Gia)
+                                </div>
+                            </div>
+                            <br />
+                            
+                                <br />
+                                <br />
+                                @*<div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Tình trạng giao hàng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                                    @if (@Model.TinhTrangGH == true)
+                                    {
+                                        @Html.CheckBox("TinhTrangGH", true, new { @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        @Html.CheckBox("TinhTrangGH", false, new { @readonly = "readonly" })
+                                    }
+                                </div>
+                              </div>*@
+
+
+                            <br /><br />
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên mặt hàng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    @Html.DropDownList("MaMatHang", new SelectList(ViewBag.MH, "MaMatHang", "TenMatHang"), new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.MaMatHang)
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                        }
+                        
+                        @*Admin oke*@
+                        
+                        @if (@Session["MaLoaiThanhVien"].Equals(1))
+                        {
+
+                            @Html.HiddenFor(model => model.MaHopDong)
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số HĐ</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="MaHopDong" name="MaHopDong" disabled="disabled" placeholder="@Model.HopDong.SoHopDong">
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                             
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên mặt hàng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    @Html.DropDownList("MaMatHang", new SelectList(ViewBag.MH, "MaMatHang", "TenMatHang"), new { @class = "form-control", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.MaMatHang)
+                                </div>
+                            </div>
+                            <br /><br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="SoLuong" name="SoLuong" value="@Model.SoLuong" required="required">
+                                    @Html.ValidationMessageFor(model => model.SoLuong)
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Giá:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" class="form-control" id="Gia" name="Gia" value="@Model.Gia" required="required">
+                                    @Html.ValidationMessageFor(model => model.Gia)
+                                </div>
+                            </div>
+                           
+                                @*<br />
+                                <br />
+                                <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tình trạng GH</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-5">
+                                        @if (@Model.TinhTrangGH == true)
+                                        {
+                                        @Html.CheckBox("TinhTrangGH", true, new { @readonly = "readonly" })
+                                        }
+                                        else
+                                        {
+                                        @Html.CheckBox("TinhTrangGH", false, new { @readonly = "readonly" })
+                                        }
+                                    </div>
+                                </div>*@
+
+                           
+                            <br />
+                            <br />
+                            <br />
+                        }
+                       
+
+
+                        @*@if (@Session["MaLoaiThanhVien"].Equals(5)||@Session["MaLoaiThanhVien"].Equals(2))
+                        {
+                            <script language="javascript">
+                                window.onload = function () {
+                                    alert("Bạn không có vai trò!");
+                                    window.location = "../DanhMuc/XemDMHopDong";
+
+                                }
+                            </script>
+                        }*@
+                      
+                        <div class="nav navbar-right" style=" margin-right: 360px">
+                            <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                            <button type="button" onclick="location.href = '@Url.Action("XemDMHopDong", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+   
+   if (ViewBag.Message == 1)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Sửa thành công!!!");
+                //window.location = "XemDMKho";
+            }
+        </script>
+        }  
+}

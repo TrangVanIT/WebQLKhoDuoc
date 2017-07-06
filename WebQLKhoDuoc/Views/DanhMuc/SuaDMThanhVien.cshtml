@@ -1,0 +1,133 @@
+﻿@model WebQLKhoDuoc.Models.ThanhVien
+@{
+    ViewBag.Title = "SuaDMThanhVien";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+   
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="x_content">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Sửa thành viên</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br /><br />
+
+
+                <div class="x_panel">
+                
+                        <h4>Tên đăng nhập: @Model.TenDangNhap</h4>
+                        @Html.HiddenFor(model => model.MaThanhVien)
+                        @Html.HiddenFor(model => model.TenDangNhap)
+                        @Html.HiddenFor(model => model.Pass)
+                        @Html.HiddenFor(model => model.FullName)
+                        @Html.HiddenFor(model => model.Email)
+                        @Html.HiddenFor(model => model.ConfirmPassword)
+                    @Html.HiddenFor(model => model.GioiTinh)
+             
+                        <br />
+                        <br />
+                        @*<div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Mã Thành Viên</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    @Html.EditorFor(model => model.MaThanhVien)
+                                    @Html.ValidationMessageFor(model => model.MaThanhVien)
+                                </div>
+                            </div>*@
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Fullname</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" class="form-control" id="FullName" disabled="disabled" value="@Model.FullName">
+                                @Html.ValidationMessageFor(model => model.FullName)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên đăng nhập</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" class="form-control" id="TenDangNhap" disabled="disabled" value="@Model.TenDangNhap">
+                                @Html.ValidationMessageFor(model => model.TenDangNhap)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Password</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" class="form-control" id="Pass" disabled="disabled" value="@Model.Pass">
+                                @Html.ValidationMessageFor(model => model.Pass)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Email</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" class="form-control" id="Email" disabled="disabled" value="@Model.Email">
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Giới tính</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.GioiTinh == true)
+                                {
+                                    @Html.Label("Nữ")
+                                }
+                                else
+                                {
+                                    @Html.Label("Nam")
+                                }
+                            </div>
+                        </div>
+
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Là admin</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.isadmin == true)
+                                {
+                                    @Html.CheckBox("isadmin", true, new { @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("isadmin", false, new { @readonly = "readonly" })
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-1 col-xs-1">Mã Loại Thành Viên</label>
+                        <div class="col-md-6 col-sm-6 col-xs-5">
+                            @Html.DropDownList("MaLoaiThanhVien", new SelectList(ViewBag.LoaiTV, "MaLoaiThanhVien", "TenLoaiThanhVien"), new { @class = "form-control" })
+                        </div>
+                    </div>
+                        <br />
+                        <br />
+
+                        <div class="nav navbar-right" style=" margin-right: 360px">
+                            <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                            <button type="button" onclick="location.href = '@Url.Action("XemDMThanhVien", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    }
+
+

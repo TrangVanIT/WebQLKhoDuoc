@@ -1,0 +1,123 @@
+﻿@model  WebQLKhoDuoc.Models.PhieuNhap
+
+@*BanKeHoach*@
+
+@if (@Session["MaLoaiThanhVien"].Equals(3))
+{
+
+@Html.HiddenFor(model => model.isThanhToan)
+@Html.HiddenFor(model => model.SoLuongN)
+@Html.HiddenFor(model => model.TongGiaTriN)
+@Html.HiddenFor(model => model.NgayNhap)
+@Html.HiddenFor(model => model.MaHopDong)
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Phiếu:</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="TenPhieuN" class="form-control" value="@Model.TenPhieuN" required="required">
+        @Html.ValidationMessageFor(model => model.TenPhieuN)
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Theo số HĐ</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" })*@
+        @Html.DropDownList("MaHopDong", new SelectList(ViewBag.HD, "MaHopDong", "SoHopDong"), new { @class = "form-control", @disabled = "disabled" })
+        @Html.ValidationMessageFor(model => model.MaHopDong)
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày nhập</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="NgayNhap" class="form-control" disabled="disabled" placeholder="@Model.NgayNhap">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" id="SoLuongN" disabled="disabled" placeholder="@Model.SoLuongN">
+    </div>
+</div>
+<br />
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng giá:</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" disabled="disabled" placeholder="@Model.TongGiaTriN">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Hình thức thanh toán</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <select id="heard" name="HTTT" class="form-control" required>
+            <option value="Tiền mặt">Tiền mặt</option>
+            <option value="Chuyển khoản">Chuyển khoản</option>
+        </select>
+        @Html.ValidationMessageFor(model => model.HTTT)
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Thanh Toán</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @if (@Model.isThanhToan == true)
+        {
+            @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly", @disabled = "disabled" })
+        }
+        else
+        {
+            @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly", @disabled = "disabled" })
+        }
+
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Duyệt</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+
+        @if (@Model.isDuyet == true)
+        {
+            @Html.CheckBox("isDuyet", true, new { @readonly = "readonly" })
+        }
+        else
+        {
+            @Html.CheckBox("isDuyet", false, new { @readonly = "readonly" })
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Người nhập</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" })*@
+        @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.ThanhVien, "MaThanhVien", "FullName"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.MaThanhVien)
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhập vào kho</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" })*@
+        @Html.DropDownList("MaKho", new SelectList(ViewBag.Kho, "MaKho", "TenKho"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.MaKho)
+    </div>
+</div>
+
+<br />
+<br />
+<br />
+}

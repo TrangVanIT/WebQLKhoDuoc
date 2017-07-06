@@ -1,0 +1,127 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<WebQLKhoDuoc.Models.ChiTietPhieuNhap>
+@{
+    ViewBag.Title = "XemCTPX";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+
+<div class="page-title">
+
+    <!-- /.col-lg-12 -->
+    @*@using (Html.BeginForm("XemCTHopDong", "DanhMuc", FormMethod.Get))
+            {
+               <div class="center form-inline">
+            <label class="col-md-3 col-sm-3 col-xs-5">Tìm chi tiết số HD:</label>
+            <div class="col-md-7 col-sm-7 col-xs-9">
+
+                @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Gõ nội dung cần tìm", @style = "width:400px;" })
+                <input class="btn-success btn-md form-control" type="submit" value="Tìm" />
+                <br /><br />
+
+            </div>
+        </div>
+
+            }*@
+</div>
+<!-- /.row -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_content">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Xem Chi tiết phiếu nhập</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="x_panel">
+                <!-- /.panel-heading -->
+                <div class="panel body panel panel-primary">
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
+
+                            <tr class="headings">
+                                <th class="column-title">
+                                    Mặt hàng
+                                </th>
+                                <th class="column-title">
+                                    Số lượng
+                                </th>
+                               
+                                <th class="column-title">
+                                    Giá
+                                </th>
+                                <th class="column-title">
+                                   Ngày sản xuất
+                                </th>
+                                <th class="column-title">
+                                   Hạn sử dụng 
+                                </th>
+
+                            </tr>
+
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            <tbody>
+
+                                <tr class="even pointer">
+                                    <td class="">
+                                        @Html.DisplayFor(modelItem => item.MatHang.TenMatHang)
+                                    </td>
+                                    <td class="">
+                                        @Html.DisplayFor(modelItem => item.SLHangTamN)
+                                    </td>
+                                    <td class="htmlfield">
+                                        @Html.DisplayFor(modelItem => item.GiaHangN)
+                                    </td>
+                                    <td class="">
+                                        @Html.DisplayFor(modelItem => item.NgaySX)
+                                    </td>
+                                    <td class="">
+                                        @Html.DisplayFor(modelItem => item.MatHang.HanSD)
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        }
+                        </br>
+                    </table>
+
+                </div>
+
+                <!-- /.panel-body -->
+                <!-- /.panel -->
+            
+                
+            </div>
+            <!-- /.col-lg-12 -->
+            <div style="margin-left:400px;">
+                @Html.PagedListPager(Model, page => Url.Action("XemCTPN", new {@MaPhieuN= ViewBag.CTPN, page = page }))
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.col-lg-12 -->
+@Html.Partial("~/Views/Shared/BacktoTopP.cshtml")
+
+<div class="">
+
+    <a href="@Url.Action("XemPhieuNhap", "PhieuNhapXuat")" class="btn btn-default btn-xs">
+        Quay lại
+
+    </a>
+</div>
+
+<script src="~/Content/jquery.priceformat.min.js"></script>
+<script type="text/javascript">
+
+    $('.htmlfield').priceFormat({
+        prefix: '',
+        limit: 0,
+        centsLimit: 2
+    });
+</script>

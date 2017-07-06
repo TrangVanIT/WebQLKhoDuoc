@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+<div class="x_panel">
+    <div class="x_title">
+       
+        <h4>Cấp quyền cho người dùng<b style=" color:blue;">&nbsp;&nbsp;@ViewBag.usergrant</b></h4>
+            <div class="clearfix"></div>
+</div>
+</div>
+<div id="msg"></div>
+
+    <div class="x_panel">
+    <div class="col-lg-7">
+     
+            <!-- /.panel-heading -->
+        <h4 style="margin-left:100px">Danh sách nghiệp vụ</h4>
+        
+            @Html.DropDownList("DanhMucQuyenController", (IEnumerable<SelectListItem>)ViewBag.items, new { size = 20, onchange = "getPhanQuyenTV('/PhanQuyenTV/getPhanQuyenTV/'+this.value,'" + Session["usergrant"] + "');", @style = "width:400px;overflow-y:scroll; height:300px;" })
+
+       
+    </div>
+    <div class="col-lg-5">     
+        <h4 style="margin-left:70px">Danh sách quyền hạn</h4><div style="overflow-y: scroll; height: 300px" id="listaction"></div>
+      
+    </div>
+
+
+
+    <script>
+        function getPhanQuyenTV(action, usergrant) {
+            $.ajax({
+                method: "GET",
+                url: action,
+                data: { usertemp: usergrant },
+                success: function (data) {
+                    $('#listaction').html('');
+                    $.each(data, function (index, value) {
+                        if (value.IsGranted)
+                            $('#listaction').append("<input type='CheckBox'   checked onchange='updatePhanQuyen(" + value.MaQuyen + ",\"@Session["usergrant"]\")' value='" + value.MaQuyen + "'>" + value.MoTa + "<br>");
+                        else
+                            $('#listaction').append("<input type='CheckBox' onchange='updatePhanQuyen(" + value.MaQuyen + ",\"@Session["usergrant"]\")' value='" + value.MaQuyen + "'>" + value.MoTa + "<br>");
+
+                    })
+                }
+            })
+        }
+
+        function updatePhanQuyen(value, usergranted) {
+
+            $.ajax({
+                method: "GET",
+                url: "/PhanQuyenTV/updatePhanQuyen/" + value,
+                data: { usertemp: parseInt(usergranted) },
+                success: function (data) {
+                    $("#msg").html(data);
+                }
+            })
+        }
+    </script>
+</div>

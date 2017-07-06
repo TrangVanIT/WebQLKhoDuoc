@@ -1,0 +1,68 @@
+﻿@model WebQLKhoDuoc.Models.DonViGN
+@{
+    ViewBag.Title = "SuaDMDonVi";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Sửa đơn vị</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="x_panel">
+                <h4>Tên đơn vị: @Model.TenDonVi</h4>
+                @Html.HiddenFor(model => model.MaDonVi)
+
+
+                <br />
+                <br />
+            @*BanKeHoach,Admin*@
+              <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Kho</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        @*<input type="text" name="TenKho" class="form-control"  placeholder="@Model.TenKho">*@
+                        <input type="text" name="TenDonVi" class="form-control" value="@Model.TenDonVi" required="required">
+                        @Html.ValidationMessageFor(model => model.TenDonVi)
+                    </div>
+                </div>
+                <br />
+                <br />
+
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemDMDonVi", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+         
+            @* BanTaiChinh, BanChuNhiem *@
+            @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))
+            {
+                <script language="javascript">
+                    window.onload = function () {
+                        alert("Bạn không có vai trò!");
+                        window.location = "../DanhMuc/XemDMDonVi";
+
+                    }
+                </script>
+            }*@
+                
+            </div>
+
+        </div>
+    </div>
+
+}
+
+
+

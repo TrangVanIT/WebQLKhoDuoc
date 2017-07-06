@@ -1,0 +1,191 @@
+﻿@model WebQLKhoDuoc.Models.PhieuXuat
+
+@{
+    ViewBag.Title = "ChonBaoCaoX";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Content/moment.js"></script>
+
+@using (Html.BeginForm("BaoCaoHangXuat", "BaoCao", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Báo Cáo Hàng xuất</h2>
+                        @Html.HiddenFor(model => model.MaPhieuX)
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <div class="x_panel">
+          
+              
+                    <div class="x_content">
+                        <div class="col-md-6 col-sm-6 col-xs-12" style="border:0px solid #e5e5e5;">
+
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Từ Ngày</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    @*@Html.DropDownList("MaPhieuX", new SelectList(string.Empty, "MaPhieuX", "NgayXuat"), "--Chọn ngày--", new { @class = "form-control" })*@
+                                    <input type="date" name="NgayXuatS" id="NgayXuatS" class="form-control" placeholder=" " required="required">
+                                    <br />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Đến Ngày</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                    @*@Html.DropDownList("MaPhieuX", new SelectList(string.Empty, "MaPhieuX", "NgayXuat"), "--Chọn ngày--", new { @class = "form-control" })*@
+                                    <input type="date" name="NgayXuat" id="NgayXuatF" class="form-control" placeholder=" " required="required">
+                                    @*ViewBag.StateList2,*@
+                                    <br />
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <div class="form-group">
+                                <label class="control-label col-md-6 col-sm-6 col-xs-12">Tên Đơn vị nhận</label>
+                                <div class="col-md-9 col-sm-9 col-xs-12">
+
+                                    <select id="MaDonVi" required="required">
+                                        <option>
+                                            Chọn
+                                        </option>
+                                    </select>
+
+                                    @*@Html.DropDownList("MaDonVi", new SelectList(ViewBag.StateList3, "MaDonVi", "TenDonVi"), new { @class = "form-control" })*@
+                                </div>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+
+
+
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <br />
+                                <br />
+
+
+                                <a href="../BaoCao/ChiTietBCX" id="bcx" class="btn btn-primary btn-xs"><i class="fa fa-adn"></i>Báo cáo</a>
+
+                            </div>
+                        </div>
+                    </div>
+           
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script src="~/Content/date.js"></script>
+
+<script type="text/javascript">
+    
+    $('#NgayXuatF').on('change', function () {
+        start_day = moment($("#NgayXuatS").val()).format('YYYY-MM-DD h:mm:ss');      
+        finish_day = moment($("#NgayXuatF").val()).format('YYYY-MM-DD h:mm:ss');
+   
+       
+        if (start_day < finish_day) {
+            $.ajax({
+                url: '/BaoCao/DonViList2',
+                dataType: "json",
+                type: "GET",
+                data: { tungay: start_day, denngay: finish_day },
+                success: function (data) {
+                    $("#MaDonVi").empty();
+                    $('#MaDonVi').append('<option selected>--Chọn đơn vị--</option>');
+                    $.each(data, function (i, item) {
+                        idnam = item.MaPhieuX;
+                            $('#MaDonVi').append('<option  id="' + item.MaDonVi + '">' + item.TenDonVi + '</option>');
+                    });
+                },
+                error: function (xhr) {
+                    alert('error');
+                }
+            });
+            $('#MaDonVi').on('change', function () {
+                var k = $(this).find('option:selected').attr('id');
+
+
+                $("#bcx").attr('href', '../BaoCao/ChiTietBCX?MaDV=' + k + '&' + 'tungay=' + start_day + '&' + 'denngay=' + finish_day);
+
+            });
+
+        } else {
+            alert('Tu ngay < Den ngay...Vui Long nhap lai ngay ');
+            
+        }
+       
+    });
+
+</script>
+
+
+@*<script type="text/javascript">
+    var data_id = new Array();
+
+    function getdonvi(kt) {
+        var data1 = parseInt($('#MaKho').val());
+        $.ajax({
+            url: '/BaoCao/DonViList',
+            dataType: "json",
+            type: "GET",
+            data: { MaKho: data1 },
+            success: function (data) {
+                var idnam = '';
+                $("#MaDonVi").empty();
+                $("#MaPhieuX").empty();
+                $('#MaDonVi').append('<option selected>--Chọn đơn vị--</option>');
+                $('#MaPhieuX').append('<option selected>--Chọn ngày--</option>');
+                $.each(data, function (i, item) {
+                    idnam = item.MaPhieuX;
+                    if (kt == true) {
+                        $('#MaPhieuX').append('<option  id="' + item.MaPhieuX + '">' + item.NgayXuat + '</option>');
+                        $('#MaDonVi').append('<option  id="' + item.MaDonVi + '">' + item.TenDonVi + '</option>');                      
+                    }
+                 
+                });               
+            },
+
+
+
+            error: function (xhr) {
+                alert('error');
+            }
+        });
+        $('#MaDonVi').on('change', function () {           
+            var k = $(this).find('option:selected').attr('id');
+           
+          
+                $("#bcx").attr('href', '../BaoCao/ChiTietBCX?MaKho=' + data1 + '&' + 'MaDV=' + k + '&' + 'tungay=' + k2 + '&' + 'denngay=' + k3);
+            
+        });       
+    }
+    blur
+    $('#MaKho').on('change', function () {       
+        getdonvi(true);
+       
+    });
+    $('#MaPhieuX').on('change', function () {
+        //var k2 = $(this).find('option:selected').attr('id');
+        alert($(this).find('option:selected').attr('id'));
+    });
+    $('#MaPhieuX').on('change', function () {
+
+        var k2 = $(this).find('option:selected').attr('id');
+    });
+
+</script>*@

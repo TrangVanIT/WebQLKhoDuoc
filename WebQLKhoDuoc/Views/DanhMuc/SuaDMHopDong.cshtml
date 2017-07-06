@@ -1,0 +1,381 @@
+﻿@model WebQLKhoDuoc.Models.HopDong
+@{
+    ViewBag.Title = "SuaDMHopDong";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Sửa Hợp Đồng</h2>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            @Html.HiddenFor(model => model.TongGiaHD)
+            
+            <div class="x_panel">              
+                    <h4>Số HD: @Model.SoHopDong</h4>
+                    @*@Html.HiddenFor(model => model.MaHopDong)*@   
+                                
+                
+                    <br />
+                    <br />
+                    @*BanChuNhiem sua ngky*@
+                    @if (@Session["MaLoaiThanhVien"].Equals(2))
+                    {
+                        @Html.HiddenFor(model => model.SoHopDong)
+                        @Html.HiddenFor(model => model.NgayKy)
+                        @Html.HiddenFor(model => model.NgayKT) 
+                        @Html.HiddenFor(model => model.MaNhaCC) 
+                        @Html.HiddenFor(model => model.isThanhToan) 
+                
+                    
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="SoHopDong" disabled="disabled" class="form-control" value="@Model.SoHopDong">                           
+                                @Html.ValidationMessageFor(model => model.SoHopDong)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="NgayKy" disabled="disabled" class="form-control" value="@Model.NgayKy">                           
+                                @Html.ValidationMessageFor(model => model.NgayKy)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày kết thúc</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="NgayKT" disabled="disabled" class="form-control" value="@Model.NgayKT" >                       
+                                @Html.ValidationMessageFor(model => model.NgayKT)
+                            </div>
+                        </div>
+                         <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng tiền</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="TongGiaHD" disabled="disabled" class="form-control" value="@Model.TongGiaHD">                       
+                                @Html.ValidationMessageFor(model => model.TongGiaHD)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thanh toán</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.isThanhToan == true)
+                                {
+                                    @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly", @disabled = "disabled" })
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1" >Người Ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5" >
+                                @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), new { @class = "form-control", @required = "required" })
+                             
+                                @Html.ValidationMessageFor(model => model.MaThanhVien)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhà cung cấp</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5" >
+                                @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), new { @class = "form-control", disabled = "disabled" })
+                            
+                                 @Html.ValidationMessageFor(model => model.MaNhaCC)
+                            </div>
+                        </div>
+                    }
+                    @*admin all*@
+                    @if (@Session["MaLoaiThanhVien"].Equals(1))
+                    {
+                    
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="SoHopDong" class="form-control" value="@Model.SoHopDong" required="required">
+                                @Html.ValidationMessageFor(model => model.SoHopDong)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="date" name="NgayKy" class="form-control" value="@Model.NgayKy" required="required">
+                                @Html.ValidationMessageFor(model => model.NgayKy)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày kết thúc</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="date" name="NgayKT" class="form-control" value="@Model.NgayKT" required="required">
+                                @Html.ValidationMessageFor(model => model.NgayKT)
+                            </div>
+                        </div>
+                         <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng tiền</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="TongGiaHD" disabled="disabled" class="form-control" value="@Model.TongGiaHD">                       
+                                @Html.ValidationMessageFor(model => model.TongGiaHD)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thanh toán</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.isThanhToan == true)
+                                {
+                                    @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly" })
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Người Ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), new { @class = "form-control", @required = "required" })
+                                @*@Html.DropDownList("MaThanhVien", String.Empty)*@
+                                @Html.ValidationMessageFor(model => model.MaThanhVien)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhà cung cấp</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), new { @class = "form-control", @required = "required" })
+                                @*@Html.DropDownList("MaNhaCC", String.Empty)*@
+                                @Html.ValidationMessageFor(model => model.MaNhaCC)
+                            </div>
+                        </div>
+                    }
+
+                    @*admin tru thanhtoan*@
+                     @if (@Session["MaLoaiThanhVien"].Equals(3))
+                    {
+                        @Html.HiddenFor(model => model.isThanhToan) 
+                
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="SoHopDong" class="form-control" value="@Model.SoHopDong" required="required">
+                                @Html.ValidationMessageFor(model => model.SoHopDong)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="date" name="NgayKy" class="form-control" value="@Model.NgayKy" required="required">
+                                @Html.ValidationMessageFor(model => model.NgayKy)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày kết thúc</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="date" name="NgayKT" class="form-control" value="@Model.NgayKT" required="required">
+                                @Html.ValidationMessageFor(model => model.NgayKT)
+                            </div>
+                        </div>
+                         <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng tiền</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="TongGiaHD" disabled="disabled" class="form-control" value="@Model.TongGiaHD">                       
+                                @Html.ValidationMessageFor(model => model.TongGiaHD)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thanh toán</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.isThanhToan == true)
+                                {
+                                    @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly", @disabled = "disabled" })
+                                }
+                            </div>
+                        </div>
+                     
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Người Ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), new { @class = "form-control", @required = "required" })
+                                @*@Html.DropDownList("MaThanhVien", String.Empty)*@
+                                @Html.ValidationMessageFor(model => model.MaThanhVien)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhà cung cấp</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), new { @class = "form-control", @required = "required" })
+                                @*@Html.DropDownList("MaNhaCC", String.Empty)*@
+                                @Html.ValidationMessageFor(model => model.MaNhaCC)
+                            </div>
+                        </div>
+                    }
+                    
+                    
+                    
+
+                    @* BanTaiChinh duyet thanh toan*@
+                    @if (@Session["MaLoaiThanhVien"].Equals(4))
+                    {
+                        @Html.HiddenFor(model => model.SoHopDong)
+                        @Html.HiddenFor(model => model.NgayKy)
+                        @Html.HiddenFor(model => model.NgayKT) 
+                        @Html.HiddenFor(model => model.MaNhaCC) 
+                         @Html.HiddenFor(model => model.MaThanhVien) 
+                        
+                    
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="SoHopDong" disabled="disabled" class="form-control" value="@Model.SoHopDong">                           
+                                @Html.ValidationMessageFor(model => model.SoHopDong)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="NgayKy" disabled="disabled" class="form-control" value="@Model.NgayKy">                           
+                                @Html.ValidationMessageFor(model => model.NgayKy)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày kết thúc</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="NgayKT" disabled="disabled" class="form-control" value="@Model.NgayKT" >                       
+                                @Html.ValidationMessageFor(model => model.NgayKT)
+                            </div>
+                        </div>
+                         <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng tiền</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="TongGiaHD" disabled="disabled" class="form-control" value="@Model.TongGiaHD">                       
+                                @Html.ValidationMessageFor(model => model.TongGiaHD)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Thanh toán</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                @if (@Model.isThanhToan == true)
+                                {
+                                    @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly"})
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly"})
+                                }
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1" >Người Ký</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5" >
+                                @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), new { @class = "form-control", disabled = "disabled" })
+                             
+                                @Html.ValidationMessageFor(model => model.MaThanhVien)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhà cung cấp</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5" >
+                                @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), new { @class = "form-control", disabled = "disabled" })
+                            
+                                 @Html.ValidationMessageFor(model => model.MaNhaCC)
+                            </div>
+                        </div>
+                    }
+                   
+                    @* BanTaiChinh *@
+                    @if (@Session["MaLoaiThanhVien"].Equals(5))
+                    {
+                        <script language="javascript">
+                            window.onload = function () {
+                                alert("Bạn không có vai trò!");
+                                window.location = "../DanhMuc/XemDMHopDong";
+
+                            };
+                        </script>
+                    }
+                    <br />                   
+                  
+                    <br />
+                    <br />
+
+                    <div class="nav navbar-right" style=" margin-right: 360px">
+                        <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                        <button type="button" onclick="location.href = '@Url.Action("XemDMHopDong", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+     if (ViewBag.Message == 0)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Ngày ký phải nhỏ hơn ngày kết thúc!!!");
+               
+            }
+        </script>
+            
+        }  
+}
+
+

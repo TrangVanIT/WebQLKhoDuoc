@@ -1,0 +1,58 @@
+﻿@model  WebQLKhoDuoc.Models.PhieuXuat
+
+@{
+    ViewBag.Title = "SuaPX";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Tên phiếu xuất: @Model.TenPhieuX </h2>
+                    @Html.HiddenFor(model => model.MaPhieuX)
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="x_panel">
+
+
+                @*BanTaiChinh*@
+                @Html.Partial("_PartialSuaPX1")
+                
+                @*BanKeHoach oke*@
+                @Html.Partial("_PartialSuaPX2")
+                
+                @*Admin oke*@
+                @Html.Partial("_PartialSuaPX3")
+                
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" class="btn btn-primary btn-md">Cập nhật</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemPhieuXuat", "PhieuNhapXuat")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+}
+
+<script src="~/Content/jquery.priceformat.min.js"></script>
+<script type="text/javascript">
+
+    $('.htmlfield').priceFormat({
+        prefix: '',
+        limit: 0,
+        centsLimit: 2
+    });
+</script>

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "BCTongGTCapDV";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "WebDocumentViewer1";
+}).Bind(new BCTongGTCapDV()).GetHtml()
+
+
+
+

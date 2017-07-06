@@ -1,0 +1,114 @@
+﻿@model  WebQLKhoDuoc.Models.PhieuNhap
+
+@*BanTaiChinh oke*@
+
+
+@if (@Session["MaLoaiThanhVien"].Equals(4))
+{
+@Html.HiddenFor(model => model.TenPhieuN)
+@Html.HiddenFor(model => model.NgayNhap)
+@Html.HiddenFor(model => model.isDuyet)
+@Html.HiddenFor(model => model.SoLuongN)
+@Html.HiddenFor(model => model.TongGiaTriN)
+@Html.HiddenFor(model => model.HTTT)
+@Html.HiddenFor(model => model.MaThanhVien)
+@Html.HiddenFor(model => model.MaKho)
+@Html.HiddenFor(model => model.MaHopDong)
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên phiếu</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" id="TenPhieuN" disabled="disabled" placeholder="@Model.TenPhieuN">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày nhập</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="NgayNhap" id="NgayNhap" class="form-control" disabled="disabled" placeholder="@Model.NgayNhap">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" id="SoLuongN" disabled="disabled" placeholder="@Model.SoLuongN">
+    </div>
+</div>
+<br />
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tổng giá:</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" disabled="disabled" placeholder="@Model.TongGiaTriN">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Hình thức thanh toán</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" class="form-control" disabled="disabled" placeholder="@Model.HTTT">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Thanh Toán</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @if (@Model.isThanhToan == true)
+        {
+            @Html.CheckBox("isThanhToan", true, new { @readonly = "readonly" })
+        }
+        else
+        {
+            @Html.CheckBox("isThanhToan", false, new { @readonly = "readonly" })
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Duyệt</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        @if (@Model.isDuyet == true)
+        {
+            @Html.CheckBox("isDuyet", true, new { @readonly = "readonly", @disabled = "disabled" })
+        }
+        else
+        {
+            @Html.CheckBox("isDuyet", false, new { @readonly = "readonly", @disabled = "disabled" })
+        }
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Người nhập</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="MaThanhVien" class="form-control" disabled="disabled" placeholder="@Model.ThanhVien.FullName">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Nhập vào kho</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="MaKho" class="form-control" disabled="disabled" placeholder="@Model.Kho.TenKho">
+    </div>
+</div>
+<br />
+<br />
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-1 col-xs-1">Theo Số HĐ</label>
+    <div class="col-md-6 col-sm-6 col-xs-5">
+        <input type="text" name="MaHopDong" class="form-control" disabled="disabled" placeholder="@Model.HopDong.SoHopDong">
+    </div>
+</div>
+<br />
+<br />
+<br />
+}

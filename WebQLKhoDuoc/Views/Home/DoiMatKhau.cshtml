@@ -1,0 +1,87 @@
+﻿
+@model WebQLKhoDuoc.Models.ManageUserViewModel
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Shared/Login.cshtml";
+}
+@using (@Html.BeginForm("DoiMatKhau", "Home", FormMethod.Post, new { name = "myform", onsubmit = "return validateform()" }))
+{
+    <div id="login-box" class="login-box visible widget-box no-border">
+        <div class="widget-body">
+            <div class="widget-main">
+                <h4 class="header blue lighter bigger" style="text-align:center">
+                    Vui lòng nhập thông tin
+                </h4>
+
+                <div class="space-6"></div>
+
+                <fieldset>
+
+                    <h4><b>Thay đổi mật khẩu</b></h4>
+                    <label>
+                        @ViewBag.Message
+                    </label>
+            
+                    <label class="block clearfix">
+                        Nhập mật khẩu cũ:
+                        <span class="width-65 block input-icon input-icon-right">
+                            @Html.EditorFor(m => m.OldPassword, new { @id = "txt_cpassword", @style = "width:350px;" })
+                            @Html.ValidationMessageFor(m => m.OldPassword)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+                    <label class="block clearfix">
+                        Nhập mật khẩu mới:
+                        <span class="width-65 block input-icon input-icon-right">
+                            @Html.EditorFor(m => m.NewPassword, new { @id = "txt_npassword", @style = "width:350px;" })
+                            @Html.ValidationMessageFor(m => m.NewPassword)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+                    <label class="block clearfix">
+                        Nhập lại mật khẩu mới:
+                        <span class="block input-icon input-icon-right">
+                            @Html.Password("ConfirmPassword", null, new { @id = "txtconfirm_npassword", @style = "width:300px;" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
+                    </label>
+
+                    <div class="block clearfix">
+                        <button type="submit" class="width-50 pull-left btn btn-sm btn-success">
+                            <span class="bigger-110">Cập nhật</span>
+                        </button>
+                        <a href="../Home/home" class="width-50 pull-right btn btn-sm btn-default" role="button">
+                            <span class="bigger-110">Trở lại</span>
+                        </a>
+                    </div>
+
+                </fieldset>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function validateform() {
+
+        var OldPassword = document.myform.OldPassword.value;
+        var NewPassword = document.myform.NewPassword.value;
+        var ConfirmPassword = document.myform.ConfirmPassword.value;
+        if (OldPassword == null || OldPassword == " " || NewPassword == null || NewPassword == " " || ConfirmPassword == null || ConfirmPassword == " ") {
+            alert("Không được để trống password-NewPassword-ConfirmPassword");
+            return false;
+        }
+        else {
+            if (NewPassword.length < 6) {
+                alert("Password phải nhiều hơn 6 kí tự");
+                return false;
+            }
+        }
+        if (NewPassword != ConfirmPassword) {
+            alert("Password không khớp.");
+            return false;
+        }
+        return true;
+
+    }
+</script>

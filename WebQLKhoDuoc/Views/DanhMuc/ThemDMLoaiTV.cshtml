@@ -1,0 +1,49 @@
+﻿@model WebQLKhoDuoc.Models.LoaiThanhVien
+@{
+    ViewBag.Title = "ThemDMLoaiTV";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm("ThemDMLoaiTV", "DanhMuc", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Thêm loại thành viên</h2>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="x_panel">
+                <div class="form-group">
+                    <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Loại Thành Viên</label>
+                    <div class="col-md-6 col-sm-6 col-xs-5">
+                        <input type="text" name="TenLoaiThanhVien" class="form-control" placeholder="">
+                        @Html.ValidationMessageFor(model => model.TenLoaiThanhVien)
+                    </div>
+                </div>
+                <br />
+                <br />
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" class="btn btn-primary btn-md">Lưu</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemDMLoaiTV", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+            </div>
+            </div>
+        </div>
+      if (ViewBag.Message == 0)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Tên loại TV đã tồn tại!!!");
+                window.location = "ThemDMLoaiTV";
+            }
+        </script>
+        }  
+     
+}
+

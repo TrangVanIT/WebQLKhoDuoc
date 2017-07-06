@@ -1,0 +1,226 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model PagedList.IPagedList<WebQLKhoDuoc.Models.PhieuNhap>
+@{
+    ViewBag.Title = "XemPhieuNhap";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-sm-4 col-xs-4">
+           
+                <div class="x_content">
+
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Xem thông tin Phiếu nhập</h2>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div class="x_panel">
+
+                        @using (Html.BeginForm("XemPhieuNhap", "PhieuNhapXuat", FormMethod.Get))
+                        {
+                            @ViewBag.Message
+                            <div class="page-title">
+
+                                <div class="title_right">
+                                    <div class="center form-inline">
+                                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search center form-inline">
+                                            <label class="col-md-5 col-sm-5 col-xs-7">Từ Ngày</label>
+                                            <div class="col-md-7 col-sm-7 col-xs-9">
+                                                @Html.TextBox("NgayNhapS", "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @style = "width:300px;", @required = "required" })
+                                                <br />
+                                            </div>
+
+                                            <label class="col-md-5 col-sm-5 col-xs-7">Đến Ngày</label>
+                                            <div class="col-md-7 col-sm-7 col-xs-9">
+                                                @Html.TextBox("NgayNhapF", "{0:yyyy-MM-dd}", new { @class = "form-control", @type = "date", @style = "width:300px;", @required = "required" })
+                                                <br /><br />
+                                                <input class="btn-success btn-md form-control center " type="submit" value="Lọc phiếu" id="search-button" />
+
+                                            </div>
+                                           
+                                        </div>
+                                        
+
+                                    </div>
+                                  
+                                </div>
+                            </div>
+                        }  
+                        <div class="panel body panel panel-primary">
+                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <thead>
+
+                                    <tr class="headings">
+                                        @*<th class="column-title">
+                                @Html.DisplayNameFor(model => model.First().MaPhieuN)
+                            </th>*@
+                                        <th class="column-title">
+                                            Tên phiếu nhập
+                                        </th>
+                                        <th class="column-title">
+                                            Ngày nhập
+                                        </th>
+                                        <th class="column-title">
+                                            Số lượng nhập
+                                        </th>
+                                        <th class="column-title">
+                                            Tổng giá
+                                        </th>
+                                        <th class="column-title">
+                                            Hình Thức TT
+                                        </th>
+                                        <th class="column-title">
+                                            Số hợp đồng
+                                        </th>
+                                        <th class="column-title">
+                                            Thanh toán
+                                        </th>
+                                        <th class="column-title">
+                                            Duyệt
+                                        </th>
+                                        <th class="column-title">
+                                            Người nhập
+                                        </th>
+                                        <th class="column-title">
+                                            Tên kho
+                                        </th>
+                                        <th class="column-title">Xem mặt hàng</th>
+                                       
+                                        <th class="column-title">Sửa</th>
+                                       
+                                       
+                                       <th class="column-title">Xóa</th>
+                                       
+                                    </tr>
+
+                                </thead>
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+
+                                        <tr class="even pointer">
+                                            @*<td class="">
+                                    @Html.DisplayFor(modelItem => item.MaPhieuN)
+
+                                </td>*@
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.TenPhieuN)
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.NgayNhap)
+
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.SoLuongN)
+                                            </td>
+
+                                            <td class="htmlfield">
+                                                @Html.DisplayFor(modelItem => item.TongGiaTriN)
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.HTTT)
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.HopDong.SoHopDong)
+                                            </td>
+                                            <td class="center">
+                                                @if (item.isThanhToan == true)
+                                                {
+                                                    @Html.CheckBox("Đã thanh toán", true, new { disabled = "disabled", @readonly = "readonly" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.CheckBox("Chưa thanh toán", false, new { disabled = "disabled", @readonly = "readonly" })
+                                                }
+                                            </td>
+
+                                            <td class="center">
+                                                @if (item.isDuyet == true)
+                                                {
+                                                    @Html.CheckBox("Đã duyệt", true, new { disabled = "disabled", @readonly = "readonly" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.CheckBox("Chưa duyệt", false, new { disabled = "disabled", @readonly = "readonly" })
+                                                }
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.ThanhVien.FullName)
+                                            </td>
+                                            <td class="">
+                                                @Html.DisplayFor(modelItem => item.Kho.TenKho)
+                                            </td>
+                                            <td class="">
+                                                <a href="@Url.Action("XemCTPN", "PhieuNhapXuat", new { @MaPhieuN = item.MaPhieuN, page=1 })" class="btn btn-success btn-xs">
+                                                    <i class="fa fa-adn"></i>
+                                                    Xem mặt hàng
+                                                </a>
+                                            </td>
+                                            @*@if (@Session["MaLoaiThanhVien"].Equals(1) || @Session["MaLoaiThanhVien"].Equals(3) || @Session["MaLoaiThanhVien"].Equals(4))
+                                            {*@
+                                            <td class="">
+                                                <a href="@Url.Action("SuaPN", "PhieuNhapXuat", new { @MaPhieuN = item.MaPhieuN })" class="btn btn-info btn-xs">
+                                                    <i class="fa fa-pencil"></i>
+                                                    Sửa
+                                                </a>
+                                            </td> 
+                                            @*}*@                            
+                                            @*@if (@Session["MaLoaiThanhVien"].Equals(1) || @Session["MaLoaiThanhVien"].Equals(3))
+                                            {*@
+                                            <td class="">
+                                                <a href="@Url.Action("XoaPN", "PhieuNhapXuat", new { @MaPhieuN = item.MaPhieuN })" class="btn btn-danger btn-xs">
+                                                    <i class="fa fa-trash-o"></i>
+                                                    Xóa
+                                                </a>
+
+                                            </td>
+                                               @*}*@ 
+                                        </tr>
+
+                                    </tbody>
+                                }
+                            </table>
+                            <br />
+                  
+                        </div>
+                         <a href="@Url.Action("ThemPN", "PhieuNhapXuat")" class="btn btn-primary btn-xs">
+                                <i class="fa fa-plus"></i>
+                                Thêm Mới
+                        </a>
+                     
+
+                    </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div style="margin-left:400px;">
+    @Html.PagedListPager(Model, page => Url.Action("XemPhieuNhap", new { page = page }))
+</div>
+
+
+
+<script src="~/Content/jquery.priceformat.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Remove unnecessary input.
+        $('#search-button').click(function () {
+            $('input[name="DXScript"]').remove();
+            return true;
+        })
+    });
+    $('.htmlfield').priceFormat({
+        prefix: '',
+        limit: 0,
+        centsLimit: 2
+    });
+</script>
+

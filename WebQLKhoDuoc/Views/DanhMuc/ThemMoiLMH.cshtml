@@ -1,0 +1,74 @@
+﻿@model WebQLKhoDuoc.Models.LoaiMatHang
+
+@{
+    ViewBag.Title = "ThemMoiLMH";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+@using (Html.BeginForm("ThemMoiLMH", "DanhMuc", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+     <div class="x_content">
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+          
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Thêm mới Loại MH</h2>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                        <br /><br />
+                        <div class="x_panel">
+                        @*BanKeHoach,Admin*@
+                       
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Loại Mặt Hàng:</label>
+                                <div class="col-md-6 col-sm-6 col-xs-5">
+                                    <input type="text" name="TenLoaiMH" class="form-control" placeholder=" " required="required">
+
+                                </div>
+                            </div>
+                             <br />
+                            <br />
+
+                            <div class="nav navbar-right" style=" margin-right: 370px">
+                                <button type="submit" value="ThemMoiLMH" class="btn btn-primary btn-md">Lưu</button>
+                                <button type="button" onclick="location.href = '@Url.Action("XemDMLoaiMH", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                            </div>
+                       
+                        @* BanTaiChinh, BanChuNhiem *@
+                        @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))*@
+                      @*else
+                        {
+                            <script language="javascript">
+                                window.onload = function () {
+                                    alert("Bạn không có vai trò!");
+                                    window.location = "../DanhMuc/XemDMLoaiMH";
+
+                                }
+                            </script>
+                        }*@
+                            @if (ViewBag.Message == 0)
+                            {
+                            <script language="javascript">
+                                window.onload = function () {
+                                    alert("Tên loại đã tồn tại!!!");
+                                    window.location = "ThemMoiLMH";
+                                }
+                            </script>
+                            }  
+                            <br />
+                           
+                        </div>
+
+                </div>
+
+            </div>
+       
+    
+}
+
+

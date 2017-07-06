@@ -1,0 +1,85 @@
+﻿@model WebQLKhoDuoc.Models.NhaCungCap
+@{
+    ViewBag.Title = "ThemDMNhaCC";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+@using (Html.BeginForm("ThemDMNhaCC", "DanhMuc", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div class="x_content">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Thêm kho nhà cung cấp mới</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div>
+                </div>
+            </div>
+                    <br />
+                    <br />
+                    <div class="x_panel">
+                    @*BanKeHoach,Admin*@
+                    
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Nhà cung cấp</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="TenNhaCC" class="form-control" placeholder="" required="required">
+                                @Html.ValidationMessageFor(model => model.TenNhaCC)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Địa chỉ</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="text" name="DiaChi" class="form-control" placeholder="" required="required">
+                                @Html.ValidationMessageFor(model => model.DiaChi)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <label class="control-label col-md-2 col-sm-1 col-xs-1">Số điện thoại</label>
+                            <div class="col-md-6 col-sm-6 col-xs-5">
+                                <input type="tel" name="SDT" class="form-control" placeholder="" maxlength="11" required="required">
+                                @Html.ValidationMessageFor(model => model.SDT)
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+
+                        <div class="nav navbar-right" style=" margin-right: 360px">
+                            <button type="submit" class="btn btn-primary btn-md">Lưu</button>
+                            <button type="button" onclick="location.href = '@Url.Action("XemDMNhaCC", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                        </div>
+                   
+                    @* BanTaiChinh, BanChuNhiem *@
+                    @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))*@
+                 @*else
+                           {
+                        <script language="javascript">
+                            window.onload = function () {
+                                alert("Bạn không có vai trò!");
+                                window.location = "../DanhMuc/XemDMNhaCC";
+
+                            }
+                        </script>
+                    }*@
+                        
+                    </div>
+            </div>
+        </div>
+ 
+      if (ViewBag.Message == 0)
+        {
+        <script language="javascript">
+            window.onload = function () {
+                alert("Tên nhà cung cấp đã tồn tại!!!");
+                window.location = "ThemDMNhaCC";
+            }
+        </script>
+        }  
+}
+

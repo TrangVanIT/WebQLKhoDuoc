@@ -1,0 +1,112 @@
+﻿@model WebQLKhoDuoc.Models.MatHang
+@{
+    ViewBag.Title = "SuaMatHang";
+    Layout = "~/Views/Shared/TrangChuDM.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+   
+    @Html.HiddenFor(model => model.MaMatHang)
+    @Html.HiddenFor(model => model.TongSoLuong)
+    @Html.HiddenFor(model => model.Gia)
+  
+<div class="x_content">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Sửa Mặt Hàng</h2>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        
+        <br /><br />
+        <div class="x_panel">
+            <h2>Mặt Hàng: @Model.TenMatHang </h2>
+            <br />
+            @*BanKeHoach,Admin*@
+        
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Mặt Hàng:</label>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                    <input type="text" class="form-control" name="TenMatHang" value="@Model.TenMatHang" required="required">
+                    @Html.ValidationMessageFor(model => model.TenMatHang)
+                </div>
+
+            </div>
+
+            <br />
+            <br />
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">Đơn vị tính</label>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                    <input type="text" class="form-control" name="DonViTinh" value="@Model.DonViTinh" required="required">
+                    @Html.ValidationMessageFor(model => model.DonViTinh)
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">Số lượng</label>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                    <input type="text" class="form-control" disabled="disabled" name="SoLuong" value="@Model.TongSoLuong">
+                    @Html.ValidationMessageFor(model => model.TongSoLuong)
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">Giá</label>
+                <div class="col-md-6 col-sm-6 col-xs-5">
+
+                    <input type="text" class="form-control" name="Gia" disabled="disabled" value="@Model.Gia">
+                    @Html.ValidationMessageFor(model => model.Gia)
+                </div>
+            </div>
+            <br />
+            <br />
+         
+
+            <div class="form-group">
+                <label class="control-label col-md-2 col-sm-1 col-xs-1">Mã Loại</label>
+                @*@Html.DropDownListFor(model => model.LoaiMatHang.MaLoaiMH, (SelectList)ViewBag.MaLoaiMH, new { @class = "form-control" })*@
+                <div class="col-md-6 col-sm-6 col-xs-5">
+                    @Html.DropDownList("MaLoaiMH", new SelectList(ViewBag.LoaiMH, "MaLoaiMH", "TenLoaiMH"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MaLoaiMH)
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+            <div>
+                <br />
+                <div class="nav navbar-right" style=" margin-right: 360px">
+                    <button type="submit" class="btn btn-primary btn-md">Cập Nhật</button>
+                    <button type="button" onclick="location.href = '@Url.Action("XemMH", "DanhMuc")';" class=" btn btn-default btn-md">Hủy</button>
+                </div>
+            </div>
+        
+            @* BanTaiChinh, BanChuNhiem *@
+            @*@if (@Session["MaLoaiThanhVien"].Equals(4) || @Session["MaLoaiThanhVien"].Equals(5) || @Session["MaLoaiThanhVien"].Equals(2))
+            {
+                <script language="javascript">
+                    window.onload = function () {
+                        alert("Bạn không có vai trò!");
+                        window.location = "../DanhMuc/XemMH";
+
+                    }
+                </script>
+            }*@
+        </div>
+    </div>
+</div>
+}
