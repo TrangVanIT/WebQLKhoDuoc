@@ -27,8 +27,9 @@
                     <label class="control-label col-md-2 col-sm-1 col-xs-1">Số hợp đồng</label>
                     <div class="col-md-6 col-sm-6 col-xs-5">
                         <input type="text" name="SoHopDong" class="form-control" placeholder="" required="required">
-                        @Html.ValidationMessageFor(model => model.SoHopDong)
+                        @Html.ValidationMessageFor(model => model.SoHopDong)                   
                     </div>
+                    <label></label>
                 </div>
                 <br />
                 <br />
@@ -36,8 +37,9 @@
                     <label class="control-label col-md-2 col-sm-1 col-xs-1">Ngày ký</label>
                     <div class="col-md-6 col-sm-6 col-xs-5">
                         <input type="date" name="NgayKy" class="form-control" placeholder="" required="required">
-                        @Html.ValidationMessageFor(model => model.NgayKy)
+                        @Html.ValidationMessageFor(model => model.NgayKy)            
                     </div>
+                    <label></label>
                 </div>
                 <br />
                 <br />
@@ -47,6 +49,7 @@
                         <input type="date" name="NgayKT" class="form-control" placeholder="" required="required">
                         @Html.ValidationMessageFor(model => model.NgayKT)
                     </div>
+                    <label></label>
                 </div>
 
                 <br />
@@ -57,6 +60,7 @@
                         @Html.DropDownList("MaThanhVien", new SelectList(ViewBag.HD, "MaThanhVien", "FullName"), "--Chọn người ký--", new { @class = "form-control", @required = "required" })
                         @Html.ValidationMessageFor(model => model.MaThanhVien)
                     </div>
+                    <label></label>
                 </div>
                 <br />
                 <br />
@@ -66,6 +70,7 @@
                         @Html.DropDownList("MaNhaCC", new SelectList(ViewBag.NCC, "MaNhaCC", "TenNhaCC"), "--Chọn Nhà cung cấp--", new { @class = "form-control", @required = "required" })
                         @Html.ValidationMessageFor(model => model.MaNhaCC)
                     </div>
+                    <label></label>
                 </div>
               
                 <br />
