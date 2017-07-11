@@ -20,32 +20,34 @@
                     <br />
                     <br />
                     <div class="x_panel">
-                    @*BanKeHoach,Admin*@
-                    
+                    @*BanKeHoach,Admin*@                  
                         <div class="form-group">
                             <label class="control-label col-md-2 col-sm-1 col-xs-1">Tên Nhà cung cấp</label>
-                            <div class="col-md-6 col-sm-6 col-xs-5">
-                                <input type="text" name="TenNhaCC" class="form-control" placeholder="" required="required">
+                            <div class="col-md-6 col-sm-6 col-xs-5">   
+                               <input type="text" name="TenNhaCC" class="form-control" placeholder="" required="required">
                                 @Html.ValidationMessageFor(model => model.TenNhaCC)
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                         <br />
                         <br />
                         <div class="form-group">
                             <label class="control-label col-md-2 col-sm-1 col-xs-1">Địa chỉ</label>
-                            <div class="col-md-6 col-sm-6 col-xs-5">
-                                <input type="text" name="DiaChi" class="form-control" placeholder="" required="required">
-                                @Html.ValidationMessageFor(model => model.DiaChi)
+                            <div class="col-md-6 col-sm-6 col-xs-5">             
+                                <input type="text" name="DiaChi" class="form-control" placeholder="" required="required">                             
+                                 @Html.ValidationMessageFor(model => model.DiaChi)                          
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                         <br />
                         <br />
                         <div class="form-group">
                             <label class="control-label col-md-2 col-sm-1 col-xs-1">Số điện thoại</label>
-                            <div class="col-md-6 col-sm-6 col-xs-5">
-                                <input type="tel" name="SDT" class="form-control" placeholder="" maxlength="11" required="required">
-                                @Html.ValidationMessageFor(model => model.SDT)
+                            <div class="col-md-6 col-sm-6 col-xs-5">               
+                                <input type="number" name="SDT" class="form-control" maxlength="11" placeholder="" required="required">  
+                                @Html.ValidationMessageFor(model => model.SDT)                         
                             </div>
+                            <div class="clearfix"></div>
                         </div>
                         <br />
                         <br />
@@ -79,6 +81,13 @@
                 alert("Tên nhà cung cấp đã tồn tại!!!");
                 window.location = "ThemDMNhaCC";
             }
+            //function isNumberKey(evt) {
+            //    //var charCode = (evt.which) ? evt.which : evt.keyCode;
+            //    //if (charCode > 31 && (charCode < 48 || charCode > 57))
+            //    //    return false;
+            //    //return true;
+            //    alert("Vui lòng nhập ký tự là số!!!");
+            //}
         </script>
         }  
 }
