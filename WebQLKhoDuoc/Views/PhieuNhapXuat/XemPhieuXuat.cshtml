@@ -195,15 +195,13 @@
                     <a href="@Url.Action("ExportPXtoExcel", "PhieuNhapXuat")">Export Excel</a>*@
                    
                     </div>
-                    @if (@Session["MaLoaiThanhVien"].Equals(1) || @Session["MaLoaiThanhVien"].Equals(3))
-                    {
-
+                   
                         <a href="@Url.Action("ThemPX", "PhieuNhapXuat")" class="btn btn-primary btn-xs">
                             <i class="fa fa-plus"></i>
                             Thêm Mới
 
                         </a>
-                    }
+                 
                     <br/>
                     <!-- /.panel-body -->
                     <!-- /.panel -->
